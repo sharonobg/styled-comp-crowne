@@ -1,16 +1,27 @@
 import styled from 'styled-components';
 
 export const CheckoutContainer=styled.div`
-display:flex;
+display:flex;flex-wrap: wrap;
+/*CheckoutContainer*/
 `
 export const ItemDetailsHeader= styled.div`
-  max-width: 80%;font-size:1.2em;padding-bottom:20px;border-bottom:2px solid gray;
+  font-size:1.2em;
+  padding-bottom:20px;
+  border-bottom:2px solid gray;
+  display: flex;
+  flex: 0 0 100%;
+  flex-direction: row;
+  height: fit-content;
+  display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr .5fr;
+    grid-template-columns:250px repeat(5, 1fr);
+    grid-column-gap:10px;
 `
 
 export const CartTotalCont=styled.div`
   text-align: right;
   display: flex;
-  flex: 0 0 40%;
+  flex: 0 0 100%;
   flex-direction: column;
   gap: 20px;
   font-size: 1.5em;
@@ -19,9 +30,10 @@ export const CartTotalCont=styled.div`
 `
 export const ItemDetailsHeaderSpan= styled.div`
   display: inline-flex;
-  width: 20%;
+  
   justify-content: center;
 `
+
 export const ItemDetailsSpan= styled.span(ItemDetailsHeaderSpan);
 export const CheckoutButton= styled.span(ItemDetailsHeaderSpan);
 /*.checkout-container {

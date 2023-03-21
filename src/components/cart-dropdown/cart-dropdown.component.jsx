@@ -13,13 +13,21 @@ const CartDropdown = () => {
         navigate('/checkout'); 
         toggleIsCartOpen();
     }
+    
     return(
             <CartDropdownContainer>
+            
                 <CartItems>
-                    {cartItems.map((item) => 
+                
+                    {
+                    cartItems.length?(cartItems.map((item) => 
                     (<CartItem key={item.id} cartItem={item} />
-                    ))}
+                    )))
+                    :(<EmptyMessage>Your cart is empty</EmptyMessage>)
+                    }
+                    
                 </CartItems>
+                
                 
             <CartDropdownButton onClick={gotoCheckoutHandler}>GO TO CHECKOUT</CartDropdownButton>
         </CartDropdownContainer>
