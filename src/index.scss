@@ -4,8 +4,9 @@ body {
   font-family: 'Barlow Condensed', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color:#000;
 }
-a{text-decoration: none;}
+a{text-decoration: none;color:#000}
 a:hover{opacity: 0.5;}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

@@ -9,6 +9,9 @@ export const CategoryPreviewTitle = styled.div`
   font-size: 28px;
     margin-bottom: 25px;
     cursor: pointer;
+    color: inherit;
+    font-weight: normal;
+    
 `
 export const Preview = styled.div`
 display: grid;
