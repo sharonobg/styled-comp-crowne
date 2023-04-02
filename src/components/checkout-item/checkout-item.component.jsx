@@ -21,7 +21,7 @@ const CheckoutItem = () => {
                             </ChevronContainer> 
                             <span className="totalPr">{cartItem.totalPrice}</span>
                             <span>${price}</span>
-                            <CheckoutButton onClick={() => clearItem(cartItem)}>X</CheckoutButton>
+                            <CheckoutButton onClick={() => clearItem(cartItem)}>Clear</CheckoutButton>
                         </ItemDetails>
                         
                         </ItemsContainerWrapper>
