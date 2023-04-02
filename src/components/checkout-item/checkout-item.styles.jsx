@@ -16,10 +16,9 @@ flex:0 0 100%;
 
 `
 export const CheckoutButton = styled.div`
-  min-width: fit-content;padding:0 20px;background: none;color:gray;
+  min-width: fit-content;cursor:pointer;padding:0 20px;background: none;color:gray;
   `
-export const CheckoutItemButtonContainer = styled.div`
-  
+export const CheckoutItemButtonContainer = styled.div` 
   `
 export const ItemDetails = styled.div`
     grid-template-columns: 250px repeat(5, 1fr);

@@ -5,7 +5,7 @@ import {CheckoutContainer,CartTotalCont, CheckoutButton,ItemDetailsHeader,ItemDe
 
 const Checkout = () => {
    
-    const {cartTotalPrice} = useContext(CartContext);
+    const {cartTotal} = useContext(CartContext);
     
     return(
         <CheckoutContainer>
@@ -20,7 +20,7 @@ const Checkout = () => {
             <CheckoutItem />
             
             <CartTotalCont>
-                Total Price: ${cartTotalPrice}
+                Total Price: ${cartTotal}
                 <CheckoutButton>PLACE ORDER</CheckoutButton>
             </CartTotalCont>
         </CheckoutContainer>   
