@@ -29,7 +29,3 @@ export const CartItems = styled.div`
     flex-direction: column;
     overflow: scroll;
 `
-
-export const CartDropdownButton= styled.button`
-  margin-top: auto;
-`
