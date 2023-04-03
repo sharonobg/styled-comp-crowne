@@ -1,4 +1,4 @@
-import{createContext, useState,useReducer} from 'react';
+import{createContext,useReducer} from 'react';
 
 const addCartItem = (cartItems, productToAdd) => {
   const existingCartItem = cartItems.find(
@@ -46,6 +46,7 @@ const removeItem = (cartItems, productToRemove) => {
 };
 
 export const CART_ACTION_TYPES = {
+    SET_CART_UPDATES:'SET_CART_UPDATES',
     SET_IS_CART_OPEN: 'SET_IS_CART_OPEN',
     SET_CART_ITEMS : 'SET_CART_ITEMS',
     SET_CART_COUNT : 'SET_CART_COUNT',
@@ -62,19 +63,31 @@ const INITIAL_STATE = {
 const cartReducer = (state,action) => {
     console.log('dispatched')
     console.log('action',action);
-    const {type,payload} = action;
-    switch(type){
+    const {type, payload} = action;
+    switch(action.type){
+        
+        case CART_ACTION_TYPES.SET_IS_CART_OPEN:
+            return{
+                ...state,
+                message1: action.payload.message1
+            }
+        
         case CART_ACTION_TYPES.SET_CART_ITEMS:
             return{
                 ...state,
-                ...payload
-            };
+                //return {...state, message2: action.payload.message2}
+                message2: action.payload.message2
+            }
+        case CART_ACTION_TYPES.SET_CART_UPDATES:
+            return{
+                    ...state, ...action.payload
+            }
         default:
             throw new Error(`Unhandled type ${type} found in cartReducer`)
     };
 }
 export const CartContext = createContext({
-    isCartOpen:true,
+    isCartOpen:false,
     setIsCartOpen:() => {},
     addItemToCart: ()=> {},
     reduceCartItem:()=> {},
@@ -84,8 +97,8 @@ export const CartContext = createContext({
 });
 
 export const CartProvider = ({children}) => {
-    const[isCartOpen,setIsCartOpen]=useState(false);
-    const [{cartCount,cartTotal,cartItems},dispatch]  = useReducer(cartReducer,INITIAL_STATE);
+    
+    const [{cartCount,cartTotal,cartItems,isCartOpen,setIsCartOpen},dispatch]  = useReducer(cartReducer,INITIAL_STATE);
     //const [cartItems,setCartItems] = useState([]);
     //const [cartCount,setCartCount]=useState(0);
     //const [cartTotal,setCartTotal] = useState(0);
@@ -93,22 +106,32 @@ export const CartProvider = ({children}) => {
     const updateCartItemsReducer = (newCartItems) => {
         console.log('cartItems',cartItems);
         console.log('cartCount',cartCount);
+        //toggle isCartOpen
+        
         //generate a new cart count
         const newCartCount = newCartItems.reduce( (total, cartItem) => total + cartItem.quantity,0);
         //generate a new cart total
         const newCartTotal = newCartItems.reduce((prevTotal, cartItem) =>  prevTotal + cartItem.quantity * cartItem.price, 0);
+        
         //dispatch a new action with payload: new cart items, new cart coutn,  new cart total
-        dispatch( {
-            type: CART_ACTION_TYPES.SET_CART_ITEMS,
-            payload: {
-                cartItems: newCartItems,
-                cartCount: newCartCount,
-                cartTotal: newCartTotal,
-            },
+        dispatch( {   type: CART_ACTION_TYPES.SET_CART_UPDATES,
+            //type: CART_ACTION_TYPES.SET_IS_CART_OPEN,
+            payload:{
+                message1:null,
+                message2: {
+                    cartItems: newCartItems,
+                    cartCount: newCartCount,
+                    cartTotal: newCartTotal,
+                },
+            }
+            //type: CART_ACTION_TYPES.SET_CART_ITEMS,
+            
         });
     };
     console.log('cartItems after',cartItems);
     console.log('cartCount after',cartCount);
+    //const toggleIsCartOpen = () => setIsCartOpen((previous) => !previous);
+    const toggleIsCartOpen = () => setIsCartOpen((isCartOpen) => !isCartOpen);
     const addItemToCart = (productToAdd) => {
         const newCartItems = addCartItem(cartItems,productToAdd);
         updateCartItemsReducer(newCartItems);
@@ -139,6 +162,7 @@ export const CartProvider = ({children}) => {
         isCartOpen,
         setIsCartOpen,
         addItemToCart,
+        toggleIsCartOpen,
         cartItems,
         cartCount,
         cartTotal,

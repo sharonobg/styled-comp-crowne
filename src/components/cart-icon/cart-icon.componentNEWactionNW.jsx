@@ -5,11 +5,10 @@ import { CartIconContainer, ItemCount, ShoppingIconImg } from './cart-icon.style
 
 const CartIcon = () => {
     const { isCartOpen, setIsCartOpen,cartCount} = useContext(CartContext);
-    const toggleIsCartOpen = () => setIsCartOpen(!isCartOpen);
-    
+    const newtoggleIsCartOpen = () => setIsCartOpen(!isCartOpen);
     return(
-        <CartIconContainer onClick={toggleIsCartOpen}>
-           <ShoppingIconImg class="shopping-icon"></ShoppingIconImg>
+        <CartIconContainer onClick={newtoggleIsCartOpen}>
+           <ShoppingIconImg className="shopping-icon"></ShoppingIconImg>
             <ItemCount>{cartCount}</ItemCount>
         </CartIconContainer>
     )
