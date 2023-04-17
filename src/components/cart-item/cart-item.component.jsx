@@ -4,7 +4,6 @@ import {CartItemContImg,CartItemContainer,ItemDetails,Name} from './cart-item.st
 const CartItem = ({cartItem}) => {
     
     const {name,imageUrl,price, quantity} = cartItem;
-    
     return(
         <CartItemContainer>
             <CartItemContImg src={imageUrl} alt={`${name}`}></CartItemContImg>

@@ -57,14 +57,20 @@ export const getCategoriesAndDocments = async () => {
   //firestore methods- these utility functions help incase 3rd party libraries change we can update the method without staring over
   const collectionRef = collection(db,'categories');
   const q = query(collectionRef);
+
   const querySnapshot = await getDocs(q);
+  
+  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
+  /*
   //accumulator is first arg:
-  const categoryMap = querySnapshot.docs.reduce( (acc, docSnapshot) => {
+  const categoryMap = querySnapshot.docs
+  moving to store/category/selector.js
+  .reduce( (acc, docSnapshot) => {
     const{title,items} = docSnapshot.data();
     acc[title.toLowerCase()] = items;
     return acc;
   },{});
-  return categoryMap;
+  return categoryMap;*/
 }
 
 export const createUserDocumentFromAuth = async (

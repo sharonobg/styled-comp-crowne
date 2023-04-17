@@ -4,7 +4,7 @@ import {useDispatch  } from 'react-redux';
 import CategoriesPreview from '../../components/categories-preview/categories-preview.component';
 import Category from '../../components/category/category.component';
 import { getCategoriesAndDocments} from '../../utils/firebase/firebase.utils.js';
-import { setCategoriesMap } from '../../store/categories/category.action';
+import { setCategories } from '../../store/categories/category.action';
 
 const Shop = () => {
 
@@ -14,9 +14,10 @@ const Shop = () => {
    //you can't put a promise inside useEffect so:since getCategoriesAndDocments returns a promise -  make a new async inside the callback then callback from within like so:
     useEffect(() => {
         const getCategoriesMap = async ()=> {
-            const categoryMap = await getCategoriesAndDocments('categories');
+            const categoriesArray = await getCategoriesAndDocments('categories');
+            console.log('array',categoriesArray);
             //console.log(categoryMap);
-            dispatch(setCategoriesMap(categoryMap));
+            dispatch(setCategories(categoriesArray));
         }
         getCategoriesMap();
 

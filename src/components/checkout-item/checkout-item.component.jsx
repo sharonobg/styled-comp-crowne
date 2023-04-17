@@ -1,33 +1,33 @@
-import {useContext } from 'react';
-import{CartContext} from '../../contexts/cart.context';
+//import {useContext } from 'react';
+import {useDispatch, useSelector } from 'react-redux';
+import {selectCartItems} from '../../store/cart/cart.selector';
+import {reduceItemQuantity, clearItem, addItemToCart} from '../../store/cart/cart.action';
 import {ItemName,ItemsContainerWrapper,ItemDetailsImgContainer,ItemDetailsImg,CheckoutItemsContainer, ItemsContainer,ItemDetails,ChevronContainer,ChevronIcon,CheckoutButton} from './checkout-item.styles';
-
-const CheckoutItem = () => {
-    const {cartItems,addItemToCart,reduceItemQuantity,clearItem} 
-    = useContext(CartContext);
+const CheckoutItem = ({cartItem}) => {
+    const cartItems = useSelector(selectCartItems);
+    console.log('cartItems from checkout item: ', {cartItem})
+    const { name, imageUrl, price, quantity } = cartItem;
+    const dispatch = useDispatch();
+    const addItemToCartHandler = () => dispatch(addItemToCart(cartItems, cartItem));
+    const reduceItemQuantityHandler = () => dispatch(reduceItemQuantity(cartItems, cartItem));
+    const clearItemHandler = () => dispatch(clearItem(cartItems, cartItem));
     return(
-<CheckoutItemsContainer>
-<ItemsContainer>
-    
-               { cartItems.map((cartItem) => {
-                const {id,name,imageUrl,price, quantity} = cartItem;
-                    return(
-                      <ItemsContainerWrapper key={id}>
+            <CheckoutItemsContainer>
+                <ItemsContainer>
+                      <ItemsContainerWrapper>
                         <ItemDetails>
-                            <ItemDetailsImgContainer as='span'><ItemDetailsImg alt='' src={imageUrl} /></ItemDetailsImgContainer>
+                            <ItemDetailsImgContainer as='span'><ItemDetailsImg alt={`${name}`} src={imageUrl} /></ItemDetailsImgContainer>
                             <ItemName as='span'>{name}</ItemName>
                             <ChevronContainer>
-                            <ChevronIcon onClick={() => reduceItemQuantity(cartItem)}>&#8249;</ChevronIcon>{quantity}<ChevronIcon onClick={() =>addItemToCart(cartItem)}>&#8250;</ChevronIcon>
+                            <ChevronIcon onClick={reduceItemQuantityHandler}>&#8249;</ChevronIcon>{quantity}<ChevronIcon onClick={addItemToCartHandler}>&#8250;</ChevronIcon>
                             </ChevronContainer> 
                             <span className="totalPr">{cartItem.totalPrice}</span>
-                            <span>${price}</span>
-                            <CheckoutButton onClick={() => clearItem(cartItem)}>Clear</CheckoutButton>
+                            <span>{price}</span>
+                            <CheckoutButton onClick={clearItemHandler}>Clear</CheckoutButton>
                         </ItemDetails>
                         
                         </ItemsContainerWrapper>
-                        
-                    ) 
-                })}
+               
             </ItemsContainer>
 </CheckoutItemsContainer>
     )
